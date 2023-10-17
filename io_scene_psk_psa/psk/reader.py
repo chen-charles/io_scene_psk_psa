@@ -67,6 +67,8 @@ def read_psk(path: str) -> Psk:
                 _read_types(fp, Psk.MorphInfo, section, psk.morph_infos)
             elif section.name == b'MRPHDATA':
                 _read_types(fp, Psk.MorphData, section, psk.morph_data)
+            elif section.name == b'SKELSOCK':
+                _read_types(fp, Psk.Socket, section, psk.sockets)
             else:
                 # Section is not handled, skip it.
                 fp.seek(section.data_size * section.data_count, os.SEEK_CUR)

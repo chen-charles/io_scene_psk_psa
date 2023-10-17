@@ -92,6 +92,16 @@ class Psk(object):
             ('point_index', c_int32)
         ]
 
+    class Socket(Structure):
+        _pack_ = 1
+        _fields_ = [
+            ('name', c_char * 64),
+            ('bone_name', c_char * 64),
+            ('relative_location', Vector3),
+            ('relative_rotation', Vector3),
+            ('relative_scale', Vector3),
+        ]
+
     @property
     def has_extra_uvs(self):
         return len(self.extra_uvs) > 0
@@ -111,7 +121,11 @@ class Psk(object):
     @property
     def has_morph_data(self):
         return len(self.morph_infos) > 0
-    
+
+    @property
+    def has_sockets(self):
+        return len(self.sockets) > 0
+
     def __init__(self):
         self.points: List[Vector3] = []
         self.wedges: List[Psk.Wedge] = []
@@ -125,3 +139,5 @@ class Psk(object):
         self.morph_infos: List[Psk.MorphInfo] = []
         self.morph_data: List[Psk.MorphData] = []
         self.material_references: List[str] = []
+        self.sockets: List[Psk.Socket] = []
+
